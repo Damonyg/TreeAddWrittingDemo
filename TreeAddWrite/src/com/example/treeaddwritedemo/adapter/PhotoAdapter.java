@@ -41,7 +41,10 @@ public class PhotoAdapter extends SmallCommonAdapter<PhotoItem> {
 	public void convert(int position, final SmallViewHolder helper, final PhotoItem item) {
 		if (position == 0) {
 			// 设置no_pic
+			helper.setImageResource(R.id.id_item_image, R.drawable.pictures_no);
 			helper.setImageResource(R.id.id_item_image, R.drawable.cameia);
+			final ImageView mSelect = helper.getView(R.id.id_item_select);
+			mSelect.setVisibility(View.INVISIBLE);
 			final ImageView mImageView = helper.getView(R.id.id_item_image);
 			mImageView.setOnClickListener(new OnClickListener() {
 				@Override
@@ -112,12 +115,13 @@ public class PhotoAdapter extends SmallCommonAdapter<PhotoItem> {
 				return true;
 		return false;
 	}
+
 	protected void getImageFromCamera() {
 		String state = Environment.getExternalStorageState();
 		if (state.equals(Environment.MEDIA_MOUNTED)) {
 			Intent getImageByCamera = new Intent("android.media.action.IMAGE_CAPTURE");
 			getImageByCamera.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			((MainActivity)context).startActivityForResult(getImageByCamera, 3021);
+			((MainActivity) context).startActivityForResult(getImageByCamera, 3021);
 
 		} else {
 			Toast.makeText(context, "请确认已经插入SD卡", Toast.LENGTH_LONG).show();
