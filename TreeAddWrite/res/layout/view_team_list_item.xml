@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <RelativeLayout
+        android:id="@+id/rlt_item_select"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center" >
+
+        <ImageButton
+            android:id="@+id/id_item_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:clickable="false"
+            android:src="@drawable/picture_unselected" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/tree_item"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/rlt_item_select" >
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout_tree_spinner"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="#ffffff" >
+
+            <TextView
+                android:id="@+id/textview_tree"
+                android:layout_width="100dp"
+                android:layout_height="fill_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:textSize="14dp" />
+
+            <Spinner
+                android:id="@+id/tree_spinner"
+                android:layout_width="100dp"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="10dp"
+                android:visibility="gone"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/RelativeLayout_category_spinner"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/RelativeLayout_tree_spinner"
+            android:background="#ffffff" >
+
+            <Spinner
+                android:id="@+id/category_spinner"
+                android:layout_width="120dp"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="10dp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
