@@ -46,6 +46,8 @@ public class LocalAlbumFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		MyApplication.getmAllImage().clear();
+		getPhotoAlbum();
 		
 	}
 
@@ -109,11 +111,11 @@ public class LocalAlbumFragment extends Fragment {
 				// 只查询jpeg和png的图片
 				Cursor mCursor = MediaStore.Images.Media.query(getActivity().getContentResolver(),
 						MediaStore.Images.Media.EXTERNAL_CONTENT_URI, STORE_IMAGES);
-				// Cursor mCursor = mContentResolver.query(mImageUri, null,
-				// MediaStore.Images.Media.MIME_TYPE + "=? or "
-				// + MediaStore.Images.Media.MIME_TYPE + "=?",
-				// new String[] { "image/jpeg", "image/png" },
-				// MediaStore.Images.Media.DATE_MODIFIED);
+//				 Cursor mCursor = mContentResolver.query(mImageUri, null,
+//				 MediaStore.Images.Media.MIME_TYPE + "=? or "
+//				 + MediaStore.Images.Media.MIME_TYPE + "=?",
+//				 new String[] { "image/jpeg", "image/png" },
+//				 MediaStore.Images.Media.DATE_MODIFIED);
 				//// photo_aibum = new PhotoAibum();
 				// BitmapDrawable wave_line_bitmapdrawable = (BitmapDrawable)
 				//// getResources()
@@ -141,8 +143,7 @@ public class LocalAlbumFragment extends Fragment {
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		MyApplication.getmAllImage().clear();
-		getPhotoAlbum();
+
 		if (photo_adapter != null) {
 			photo_adapter.notifyDataSetChanged();
 		}

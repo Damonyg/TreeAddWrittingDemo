@@ -1,18 +1,34 @@
 package com.example.treeaddwritedemo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 import com.example.treeaddwritedemo.global.MyApplication;
 
+import android.app.Activity;
+import android.app.Application;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends FragmentActivity {
 	// view_photo
@@ -27,7 +43,7 @@ public class MainActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.view_photo);
-		
+		MyApplication.initDate();
 		initView();
 	}
 
@@ -42,7 +58,7 @@ public class MainActivity extends FragmentActivity {
 		}
 
 		mTabHost.setCurrentTab(0);
-		
+
 		RelativeLayout RelativeLayout_back = (RelativeLayout) findViewById(R.id.RelativeLayout_back);
 		RelativeLayout_back.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -111,28 +127,82 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
-		Log.v("yanggang", "onActivityResult");
-		if (resultCode != RESULT_OK)
-			return;
-		switch (requestCode) {
-		case PHOTO_PICKED_WITH_DATA:
-			Bitmap photo = data.getParcelableExtra("data");
-			if (photo != null) {
-				// 跳转到记录页面
-				// Intent intent = new Intent(MainActivity.this,
-				// PhotoActivity.class);
-				// intent.putExtra("aibum", gl_arr);
+		if (resultCode == Activity.RESULT_OK) {
+			String sdStatus = Environment.getExternalStorageState();
+			if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) { // 检测sd是否可用
+				Log.i("TestFile", "SD card is not avaiable/writeable right now.");
+				return;
 			}
-			Log.v("yanggang", "onActivityResult1");
-			break;
+			new DateFormat();
+			String name = DateFormat.format("yyyyMMddhhmmss", Calendar.getInstance(Locale.CHINA)) + ".jpg";
+			Bundle bundle = data.getExtras();
+			Bitmap bitmap = (Bitmap) bundle.get("data");// 获取相机返回的数据，并转换为Bitmap图片格式
+
+			FileOutputStream b = null;
+			 File file = new File("/sdcard/Image/");
+			 file.mkdirs();// 创建文件夹
+			String fileName = "/sdcard/Image/" + name;
+			try {
+				b = new FileOutputStream(fileName);
+				bitmap.compress(Bitmap.CompressFormat.JPEG, 100, b);// 把数据写入文件
+				saveImgToGallery(fileName);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					b.flush();
+					b.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			try {
+				// 将图片显示在ImageView里
+			} catch (Exception e) {
+				Log.e("error", e.getMessage());
+			}
+
 		}
+	}
+
+	public boolean saveImgToGallery(String filePath) {
+
+		boolean sdCardExist = Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED); // 判断sd卡是否存在
+
+		if (!sdCardExist)
+
+			return false;
+
+		try {
+
+			ContentValues values = new ContentValues();
+
+			values.put("datetaken", new Date().toString());
+
+			values.put("mime_type", "image/jpg");
+
+			values.put("_data", filePath);
+
+			ContentResolver cr = this.getContentResolver();
+
+			cr.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+		}
+
+		return true;
+
 	}
 
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		MyApplication.initDate();
+		Log.v("yanggang", "onResume");
+		
 	}
 
 	@Override

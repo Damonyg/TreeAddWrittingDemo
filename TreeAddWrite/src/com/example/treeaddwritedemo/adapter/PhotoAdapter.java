@@ -64,6 +64,7 @@ public class PhotoAdapter extends SmallCommonAdapter<PhotoItem> {
 
 			final ImageView mImageView = helper.getView(R.id.id_item_image);
 			final ImageView mSelect = helper.getView(R.id.id_item_select);
+			mSelect.setVisibility(View.VISIBLE);
 			final RelativeLayout mRelativeLayout = helper.getView(R.id.rlt_item_select);
 			mImageView.setColorFilter(null);
 			// 设置ImageView的点击事件
