@@ -202,12 +202,10 @@ public class MainActivity extends FragmentActivity {
 		// TODO Auto-generated method stub
 		super.onResume();
 		Log.v("yanggang", "onResume");
-		
 	}
 
 	@Override
 	protected void onDestroy() {
-
 		super.onDestroy();
 	}
 }

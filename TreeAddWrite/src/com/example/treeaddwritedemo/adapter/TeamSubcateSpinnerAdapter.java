@@ -10,13 +10,13 @@ import com.example.treeaddwritedemo.utils.TeamViewHolder;
 
 import android.content.Context;
 
-public class TeamSpinnerAdapter extends TeamCommonAdapter<Subcate> {
+public class TeamSubcateSpinnerAdapter extends TeamCommonAdapter<Subcate> {
 	
 
 	protected Context context;
 	protected ArrayList<Subcate> mDatas;
 
-	public TeamSpinnerAdapter(Context context, List<Subcate> mDatas, int itemLayoutId) {
+	public TeamSubcateSpinnerAdapter(Context context, List<Subcate> mDatas, int itemLayoutId) {
 		super(context, mDatas, itemLayoutId);
 		this.context = context;
 

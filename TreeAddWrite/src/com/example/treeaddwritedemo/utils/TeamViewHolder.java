@@ -4,8 +4,10 @@ import java.util.List;
 
 import com.example.treeaddwritedemo.R;
 import com.example.treeaddwritedemo.adapter.SharedAlbumGridViewAdapter;
-import com.example.treeaddwritedemo.adapter.TeamSpinnerAdapter;
+import com.example.treeaddwritedemo.adapter.TeamCategorySpinnerAdapter;
+import com.example.treeaddwritedemo.adapter.TeamSubcateSpinnerAdapter;
 import com.example.treeaddwritedemo.netimage.NetImageView;
+import com.example.treeaddwritedemo.util.Category;
 import com.example.treeaddwritedemo.util.CloudAlbumImg;
 import com.example.treeaddwritedemo.util.Subcate;
 import com.example.treeaddwritedemo.view.MyGridView;
@@ -87,17 +89,32 @@ public class TeamViewHolder {
 		view.setText(text);
 		return this;
 	}
-
+	
 	/**
-	 * 为Spinner设置数据
+	 * 为Spinner设置Subcate数据
 	 * 
 	 * @param viewId
 	 * @param text
 	 * @return
 	 */
-	public TeamViewHolder setSpinner(int viewId, List<Subcate> mDatas) {
+	public TeamViewHolder setCategorySpinner(int viewId, List<Category> mDatas) {
 		Spinner view = getView(viewId);
-		TeamSpinnerAdapter team_adapter = new TeamSpinnerAdapter(mContext, mDatas, R.layout.view_team_spinner_item);
+		TeamCategorySpinnerAdapter team_adapter = new TeamCategorySpinnerAdapter(mContext, mDatas, R.layout.view_team_spinner_item);
+		view.setAdapter(team_adapter);
+		// view.setText(text);
+		return this;
+	}
+
+	/**
+	 * 为Spinner设置Subcate数据
+	 * 
+	 * @param viewId
+	 * @param text
+	 * @return
+	 */
+	public TeamViewHolder setSubcateSpinner(int viewId, List<Subcate> mDatas) {
+		Spinner view = getView(viewId);
+		TeamSubcateSpinnerAdapter team_adapter = new TeamSubcateSpinnerAdapter(mContext, mDatas, R.layout.view_team_spinner_item);
 		view.setAdapter(team_adapter);
 		// view.setText(text);
 		return this;

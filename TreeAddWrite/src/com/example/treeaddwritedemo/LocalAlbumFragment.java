@@ -1,5 +1,7 @@
 package com.example.treeaddwritedemo;
 
+import java.util.ArrayList;
+
 import com.example.treeaddwritedemo.adapter.PhotoAdapter;
 import com.example.treeaddwritedemo.entities.PhotoItem;
 import com.example.treeaddwritedemo.global.MyApplication;
@@ -125,12 +127,14 @@ public class LocalAlbumFragment extends Fragment {
 				// photo_aibum.setBitmap(wave_line_bitmap);
 				// photo_aibum.setCount("1");
 				// photo_aibum.setName("");
-				
+				ArrayList<PhotoItem> mAllImage = new ArrayList<PhotoItem>();
 				while (mCursor.moveToNext()) {
 					String path = mCursor.getString(1);
 					String id = mCursor.getString(3);
-					MyApplication.getmAllImage().add(new PhotoItem(Integer.valueOf(id), path));
+					mAllImage.add(new PhotoItem(Integer.valueOf(id), path));
 				}
+				
+				MyApplication.setmAllImage(mAllImage);
 				mCursor.close();
 				// 通知Handler扫描图片完成
 				photo_mHandler.sendEmptyMessage(0x110);
